@@ -106,7 +106,7 @@ helpContent.style.padding = "24px";
 helpContent.innerHTML = `
   <h2>How to Use BALL-istic</h2>
   <p>
-    Welcome! Here is all the information about Ball-istic and the controls.<br>
+    Welcome! Here is all the information about ball-productions and the controls.<br>
     BALL-istic is made by a high schooler who wants to be a coder. This was a passion project and did take a few months to make, so I hope you'll enjoy it. <br>
     Now let's dive into the controls:<br>
     <br>
