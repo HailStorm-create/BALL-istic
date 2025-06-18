@@ -19,7 +19,7 @@ class Slider {
       ctx.font = `${this.Font}px Arial`; // Set the font size
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
-      ctx.fillText(this.message, this.x + this.width / 2, this.y - 30);
+      ctx.fillText(this.message, this.x + this.width / 2, this.y - (this.Font * 1.4));
       
       ctx.strokeStyle = dynamicColor;
       ctx.beginPath();
@@ -33,7 +33,7 @@ class Slider {
       ctx.fill();
 
       ctx.fillStyle = "white";
-      ctx.fillText(val, this.handleX, this.y - 10);
+      ctx.fillText(val, this.handleX, this.y - (this.Font * 0.5));
   }
 
   handleEvent(event) {
