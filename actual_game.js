@@ -12,40 +12,238 @@ function resizeCanvas() {
 // Set initial size
 resizeCanvas();
 
-let leftdistance = window.innerWidth/19;
+let leftdistance = window.innerWidth/25;
 console.log(canvas.innerWidth)
-let rightdistance = window.innerWidth - (leftdistance * 3.5);
+let rightdistance = window.innerWidth - (leftdistance *4.5);
 
-const trail = new Checkbox("trail?", "150px", `${rightdistance}px`, "moveToCorner");
-const BallInc = new Checkbox("Change size per bounce?", "200px", `${rightdistance}px`, "moveToCorner");
-const ExplodingBalls = new Checkbox("Explode Balls?", "250px", `${rightdistance}px`, "moveToCorner");
-const InvGravity = new Checkbox("Inverse Gravity?", "300px", `${rightdistance}px`, "moveToCorner");
-const GlowEffect = new Checkbox("Glow effect?", "350px", `${rightdistance}px`, "moveToCorner");
-const StopAfterTime = new Checkbox("Stop after Time?", "400px", `${rightdistance}px`, "moveToCorner");
-const SameVelocities = new Checkbox("Same Velocities?", "450px", `${rightdistance}px`, "moveToCorner");
-const CreateALine = new Checkbox("Create a line for bounces?", "500px", `${rightdistance}px`, "moveToCorner");
-const BallChangeSize_idbox = new IncDecBox(rightdistance, 600, 0, -5, 5, "change ball size by: ", 160);
-const amountBallsToSpawn_idbox = new IncDecBox(rightdistance, 630, 0, 0, 20, "balls to spawn?", 120);
-const ballsToStart_idbox = new IncDecBox(rightdistance, 660, 1, 1, 20, "balls to start:", 120);
-const explodingballs_idbox = new IncDecBox(rightdistance, 690, 0, 0, 20, "explode into?", 110);
+let startingyheight = window.innerHeight/10;
 
-
-const Hide_Hole = new Checkbox("Hide Holes...", "150px", `${leftdistance}px`, "moveToCorner");
-const Multiple_Rings = new Checkbox("one ring? or multiple?", "175px", `${leftdistance}px`, "moveToCorner");
-const show_ball_count = new Checkbox("Show the ball count?", "250px", `${leftdistance}px`, "moveToCorner");
-const Music = new Checkbox("MUSIC?", "300px", `${leftdistance}px`, "moveToCorner");
-const timer = new Checkbox("Should there be a timer?", "350px",`${leftdistance}px`, "moveToCorner");
-const Paused = new Checkbox("Pause?", "110px", "1745px", "moveToCorner");
+const trail = new Checkbox("trail?", `${startingyheight * 7.1}px`, `${rightdistance}px`, "trail");
+const BallInc = new Checkbox("Change size per bounce?", `${startingyheight * 3.5}px`, `${rightdistance}px`, "ball_increase");
+const ExplodingBalls = new Checkbox("Explode Balls?", `${startingyheight * 4.2}px`, `${rightdistance}px`, "exploding_balls");
+const InvGravity = new Checkbox("Inverse Gravity?", `${startingyheight * 6.7}px`, `${rightdistance}px`, "inverse_gravity");
+const GlowEffect = new Checkbox("Glow effect?", `${startingyheight * 2}px`, `${rightdistance}px`, "glow_effect");
+const StopAfterTime = new Checkbox("Stop after Time?", `${startingyheight * 5}px`, `${rightdistance}px`, "stop_after_time");
+const SameVelocities = new Checkbox("Same Velocities?", `${startingyheight * 1.5}px`, `${rightdistance}px`, "same_velocities");
+const CreateALine = new Checkbox("Create a line for bounces?", `${startingyheight * 2.5}px`, `${rightdistance}px`, "create_a_line");
+const BallChangeSize_idbox = new IncDecBox(rightdistance + 100, startingyheight * 4, 0, -5, 5, "change ball size by: ", 160);
+const amountBallsToSpawn_idbox = new IncDecBox(leftdistance * 2.45, startingyheight * 6.2,1, 0, 20, "balls to add", 120);
+const ballsToStart_idbox = new IncDecBox(leftdistance * 2.45, startingyheight * 5.6 , 1, 1, 20, "balls to start:", 120);
+const explodingballs_idbox = new IncDecBox(rightdistance + 75, startingyheight * 4.65,1, 1, 20, "explode into?", 110);
 
 
+const Hide_Hole = new Checkbox("Hide Holes...", `${startingyheight}px`, `${leftdistance}px`, "hide_holes");
+const Multiple_Rings = new Checkbox("one ring? or multiple?", `${startingyheight * 1.5}px`, `${leftdistance}px`, "multiple_rings");
+const show_ball_count = new Checkbox("Show the ball count?", `${startingyheight * 3}px`, `${leftdistance}px`, "show_ball_count");
+const Music = new Checkbox("MUSIC?", `${startingyheight * 3.5}px`, `${leftdistance}px`, "music");
+const timer = new Checkbox("Should there be a timer?", `${startingyheight * 4.3}px`,`${leftdistance}px`, "timer");
+
+
+const Paused = new Checkbox("Pause?", `${startingyheight * .5}px`, `${rightdistance}px`, "paused");
+
+
+// Create Reset Animation button with a reset icon
 const resetButton = document.createElement("button");
-resetButton.innerText = "Reset Animation";
+resetButton.innerHTML = "&#x21bb;"; // Unicode clockwise open circle arrow
 resetButton.style.position = "absolute";
-resetButton.style.top = "50px"; // Position below the checkbox
-resetButton.style.left = "1700px";
-resetButton.style.padding = "10px";
+resetButton.style.top = `${20}px`;
+resetButton.style.left = `${window.innerWidth - 150}px`;
+resetButton.style.width = "36px";
+resetButton.style.height = "36px";
+resetButton.style.borderRadius = "50%";
+resetButton.style.background = "#222";
+resetButton.style.color = "white";
+resetButton.style.fontSize = "24px";
+resetButton.style.border = "2px solid #888";
 resetButton.style.cursor = "pointer";
+resetButton.style.display = "flex";
+resetButton.style.alignItems = "center";
+resetButton.style.justifyContent = "center";
+resetButton.style.zIndex = 1001;
 document.body.appendChild(resetButton);
+
+// Your reset logic here
+resetButton.addEventListener("click", () => {
+    resetAnimation();
+});
+// Place this after your resetButton code
+
+// 1. Create the question mark button
+const helpButton = document.createElement("button");
+helpButton.innerText = "?";
+helpButton.style.position = "absolute";
+helpButton.style.top = 20 + "px"; // Position it below the reset button
+helpButton.style.left = `${window.innerWidth - 50}px`; // Position it to the right of the reset button
+helpButton.style.width = "36px";
+helpButton.style.height = "36px";
+helpButton.style.borderRadius = "50%";
+helpButton.style.background = "#222";
+helpButton.style.color = "white";
+helpButton.style.fontWeight = "bold";
+helpButton.style.fontSize = "24px";
+helpButton.style.border = "2px solid #888";
+helpButton.style.cursor = "pointer";
+helpButton.style.display = "flex";
+helpButton.style.alignItems = "center";
+helpButton.style.justifyContent = "center";
+helpButton.style.zIndex = 1001;
+document.body.appendChild(helpButton);
+
+// 2. Create the help overlay (hidden by default)
+const helpOverlay = document.createElement("div");
+helpOverlay.style.position = "fixed";
+helpOverlay.style.top = "10%";
+helpOverlay.style.left = "50%";
+helpOverlay.style.transform = "translateX(-50%)";
+helpOverlay.style.width = "60vw";
+helpOverlay.style.height = "60vh";
+helpOverlay.style.background = "#222";
+helpOverlay.style.color = "white";
+helpOverlay.style.border = "3px solid #888";
+helpOverlay.style.borderRadius = "18px";
+helpOverlay.style.boxShadow = "0 0 30px #000a";
+helpOverlay.style.display = "none";
+helpOverlay.style.flexDirection = "column";
+helpOverlay.style.zIndex = 1002;
+helpOverlay.style.overflow = "hidden";
+
+// 3. Add a scrollable content area
+const helpContent = document.createElement("div");
+helpContent.style.overflowY = "auto";
+helpContent.style.height = "calc(100% - 40px)";
+helpContent.style.padding = "24px";
+helpContent.innerHTML = `
+  <h2>How to Use BALL-istic</h2>
+  <p>
+    Welcome! Here is all the information about Ball-istic and the controls.<br>
+    BALL-istic is made by a high schooler who wants to be a coder. This was a passion project and did take a few months to make, so I hope you'll enjoy it. <br>
+    Now let's dive into the controls:<br>
+    <br>
+    <b>THE MAIN CONTROLS:</b><br>
+    - The "Reset Animation" button appears as a circular arrow icon. Clicking it will reset the animation.<br>
+    - The "Pause" button allows you to pause and unpause the animation.<br>
+    - The "?" button opens a help overlay with instructions on how to use the game.<br>
+
+    <br>
+    <b>All Other Controls:</b><br>
+    - checkboxes can be toggled on and off to change the behavior of the game.<br>
+
+    --> left side controls:<br>
+    - The "Hide Holes" button will hide the holes on the circles.<br>
+    - The "one ring? or multiple?" button will change the number of rings on the circles.<br>
+    - > a slider will appear to change the number of rings.<br>
+    - > more rings can be added with smaller radii of the holes (slider below)<br>
+    - The "Show the ball count?" button will display the number of balls currently in the game.<br>
+    - The "MUSIC?" button will toggle the background music on and off.<br>
+    - > You can change the music by choosing the music file<br>
+    - The "Should there be a timer?" button will toggle the timer on and off.<br>
+    <br>
+    - a "balls to start" control is to change the number of balls to start with.<br>
+    - a "balls to add" control is to change the number of balls to add per ball leaving the circle.<br>
+    - > e.g: if balls to add is set to 2, then every time a ball leaves the circle, 2 new balls will be added.<br>
+    <br>
+    - the "Max Amount of Balls" slider will change the maximum amount of balls in the game.<br>
+    - the "Radius of the holes" slider will change the radius of the holes on the circles.<br>
+    - the "Distance of Starting Ring" slider will change the distance of the starting ring from the center of the circles.<br>
+    - the "Ball Size" slider will change the starting size of the balls.<br>
+    - the "Max Size" slider will change the maximum size of the balls.<br>
+    - > this slider also changes the size of the balls when they explode.<br>
+
+
+    <br>
+    --> right side controls:<br>
+    - The "Same Velocities?" button will toggle the same velocities effect on and off.<br>
+    - > this means that every ball will bounce the same way and direction.<br>
+    - The "Glow effect?" button will toggle the glow effect on and off.<br>
+    - The "Create a line for bounces?" button will toggle the line creation effect on and off.<br>
+    - The "Change size per bounce?" button will toggle the size change of the balls on and off.<br>
+    - > a control will appear to change the size of the balls per bounce
+    - The "Explode Balls?" button will toggle the explosion effect on and off.<br>
+    - > a control will appear to change the number of balls to explode into.<br>
+    - > the balls explode according to the max size slider (explained later)<br>
+    - The "Stop after Time?" button will toggle the stop after time effect on and off.<br>
+    - > a slider will appear to change the time after which the ball stops.<br>
+    - > this is a beta feature and may not work as expected.<br>
+    - the "Gravity" slider will change the gravity of the game.<br>
+    - The "Inverse Gravity?" button will toggle the inverse gravity effect on and off.<br>
+    - The "trail?" button will toggle the trail effect on and off.<br>
+    - > a slider will appear to change the length of the trail.<br>
+
+    
+    <br>
+    <b> That's it, and I hope you enjoy the game/animation! </b><br>
+    <br>
+
+  </p>
+`;
+helpOverlay.appendChild(helpContent);
+
+// 4. Add a red X close button
+const closeButton = document.createElement("button");
+closeButton.innerText = "✖";
+closeButton.style.position = "absolute";
+closeButton.style.top = "8px";
+closeButton.style.right = "16px";
+closeButton.style.background = "transparent";
+closeButton.style.color = "red";
+closeButton.style.border = "none";
+closeButton.style.fontSize = "28px";
+closeButton.style.cursor = "pointer";
+closeButton.style.fontWeight = "bold";
+closeButton.style.zIndex = 1003;
+helpOverlay.appendChild(closeButton);
+
+document.body.appendChild(helpOverlay);
+
+// 5. Show/hide logic
+helpButton.addEventListener("click", () => {
+    helpOverlay.style.display = "flex";
+});
+closeButton.addEventListener("click", () => {
+    helpOverlay.style.display = "none";
+});
+
+// Create Pause/Unpause button
+const pauseButton = document.createElement("button");
+pauseButton.style.position = "absolute";
+pauseButton.style.top = 20 + "px"; // 45px below reset button
+pauseButton.style.left = `${window.innerWidth - 100}px`;;
+pauseButton.style.width = "36px";
+pauseButton.style.height = "36px";
+pauseButton.style.borderRadius = "8px";
+pauseButton.style.background = "#222";
+pauseButton.style.color = "white";
+pauseButton.style.fontSize = "24px";
+pauseButton.style.border = "2px solid #888";
+pauseButton.style.cursor = "pointer";
+pauseButton.style.display = "flex";
+pauseButton.style.alignItems = "center";
+pauseButton.style.justifyContent = "center";
+pauseButton.style.zIndex = 1001;
+document.body.appendChild(pauseButton);
+
+// Pause state variable
+let isPaused = false;
+
+// Function to update button icon
+function updatePauseButtonIcon() {
+    if (isPaused) {
+        // Play icon (triangle)
+        pauseButton.innerHTML = "&#9654;"; // Unicode triangle
+    } else {
+        // Pause icon (two bars)
+        pauseButton.innerHTML = "&#10073;&#10073;"; // Unicode double bar
+    }
+}
+updatePauseButtonIcon();
+
+// Pause button event
+pauseButton.addEventListener("click", () => {
+    isPaused = !isPaused;
+    updatePauseButtonIcon();
+    Paused.checkbox.checked = isPaused; // Sync with your Paused checkbox if needed
+});
+
 
 // --___________________________________________
 //TESTING
@@ -97,7 +295,7 @@ class Ball {
                 stoppedBalls.push(new stoppedBall([this.pos.x, this.pos.y], this.color, this.radius))
                 if (balls.length < maxBalls) {
                     for (let i = 0; i < balls_to_spawn; i++) {
-                        balls.push(new Ball([canvas.width / 2, canvas.height / 2 - 200], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
+                        balls.push(new Ball([canvas.width / 2, canvas.height / 2 - startingyheight * 1], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
                     }
                 }
             }
@@ -156,7 +354,8 @@ class Rotator {
 
 
 
-let fontSize = 15;
+let fontSize = startingyheight/6;
+let lengthSliders = window.innerWidth / 6
 console.log(fontSize)
 
 let balls = [];
@@ -169,25 +368,25 @@ circles.push(new Circle(150));
 rotators.push(new Rotator([canvas.width / 2, canvas.height / 2 - 80], 150))
 
 let time_length = 60;
-let timer_AMOUNT = new Slider(90,415,300,20,180, time_length, 0, "Time_Length:", fontSize);
+let timer_AMOUNT = new Slider(90,startingyheight * 5.2,lengthSliders,20,180, time_length, 0, "Time_Length:", fontSize);
 
 
 let gravity = 0.4;
-let gravity_AMOUNT = new Slider(1500,500,300,0.0,0.6, gravity, 0, "Gravity:", fontSize);
+let gravity_AMOUNT = new Slider(rightdistance,startingyheight * 6.4,lengthSliders,0.0,0.6, gravity, 0, "Gravity:", fontSize);
 
 let circleCenter = { x: canvas.width / 2, y: canvas.height / 2};
 let circleRadius = 150;
 let ballRadius = 5;
-let ballRad_AMOUNT = new Slider(60, 600, 300, 5, 50, ballRadius, 1, "Ball Size:", fontSize);
+let ballRad_AMOUNT = new Slider(leftdistance, startingyheight * 9.3, lengthSliders, 5, 50, ballRadius, 1, "Ball Size:", fontSize);
 
 let startAngle = -Math.PI / 6;
 let endAngle = Math.PI / 6;
 let spinningSpeed = 0.01;
 let maxBalls = 250;
-let slider_AMOUNT = new Slider(60, 80, 300, 10, 500, maxBalls, 1, "Max Amount of Balls:", fontSize);
+let slider_AMOUNT = new Slider(leftdistance, startingyheight * 7.8, lengthSliders, 10, 500, maxBalls, 1, "Max Amount of Balls:", fontSize);
 let type = 0;
 let rotator_size = 20;
-let rotator_AMOUNT = new Slider(300,300,300,12,50,rotator_size, 1, "Radius of the Holes:", fontSize)
+let rotator_AMOUNT = new Slider(leftdistance,startingyheight * 8.3,lengthSliders,12,50,rotator_size, 1, "Radius of the Holes:", fontSize)
 let balls_to_spawn = 2;
 
 let ring_time = 2;
@@ -199,15 +398,15 @@ let starting_ring = 150;
 let trail_length = 20;
 
 let ballMAXsize = 75;
-let ballMAXsizeAMOUNT = new Slider(1500,780,300,30,250,ballMAXsize, 1, "ball MAX size", fontSize);
+let ballMAXsizeAMOUNT = new Slider(leftdistance,startingyheight * 9.8,lengthSliders,30,250,ballMAXsize, 1, "ball MAX size", fontSize);
 
-let stop_after_x = 1;
+let stop_after_x = 2;
 
-let stop_after_x_AMOUNT = new Slider(1600,880,300,3,10,stop_after_x, 1, "stop after X seconds", fontSize);
+let stop_after_x_AMOUNT = new Slider(rightdistance,startingyheight * 5.7,lengthSliders,2,10,stop_after_x, 1, "stop after X seconds", fontSize);
 
-let trail_AMOUNT = new Slider(1500,600,300,0,50,trail_length, 1, "Length of the trail:", fontSize);
-let ring_AMOUNT =  new Slider(leftdistance,245,300,2,20,ring_time, 1, "Amount of Rings: ", fontSize);
-let starting_ring_AMOUNT = new Slider(1300,90,300,100,200,starting_ring, 1, "Distance of Starting Ring:", fontSize);
+let trail_AMOUNT = new Slider(rightdistance,startingyheight * 7.8,lengthSliders,0,50,trail_length, 1, "Length of the trail:", fontSize);
+let ring_AMOUNT =  new Slider(leftdistance,startingyheight * 2.5,lengthSliders,2,20,ring_time, 1, "Amount of Rings: ", fontSize);
+let starting_ring_AMOUNT = new Slider(leftdistance,startingyheight * 8.8,lengthSliders,100,200,starting_ring, 1, "Distance of Starting Ring:", fontSize);
 let balls_start = 1;
 
 let countdown = time_length; // Set countdown based on slider
@@ -262,11 +461,80 @@ if ((window.innerHeight/5 * 2) < AnimationBox) {
 }
 console.log(AnimationBox)
 
-leftbox = window.innerWidth/2 - AnimationBox;
-rightbox = window.innerWidth/2 + AnimationBox;
+leftbox = 10;
+rightbox = window.innerWidth - 10;
 
+const audioInput = document.createElement("input");
+audioInput.type = "file";
+audioInput.accept = "audio/*";
+audioInput.style.position = "absolute";
+audioInput.style.top = `${startingyheight * 3.85}px`;
+audioInput.style.left = `${leftdistance + 5}px`;
+audioInput.style.color = "#FFD700"; // Gold, or pick any color you like
+document.body.appendChild(audioInput);
 
+const style = document.createElement('style');
+style.innerHTML = `
+input[type="file"]::file-selector-button {
+    color: #FFD700; /* Gold */
+    background: #222;
+    border: 1px solid #FFD700;
+}
+input[type="file"] {
+    color: #FFD700 !important; /* Gold for the "No file chosen" text */
+}
+`;
+document.head.appendChild(style);
 
+let importedAudioBuffer = null;
+let importedAudioSegments = [];
+let importedAudioContext = null;
+let importedAudioSegmentDuration = 0.3; // seconds per segment
+let importedAudioCurrentSegment = 0;
+
+audioInput.addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!importedAudioContext) {
+        importedAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    importedAudioBuffer = await importedAudioContext.decodeAudioData(arrayBuffer);
+
+    // Split into segments
+    importedAudioSegments = [];
+    const totalDuration = importedAudioBuffer.duration;
+    const segmentLength = importedAudioSegmentDuration;
+    let offset = 0;
+    while (offset < totalDuration) {
+        importedAudioSegments.push(offset);
+        offset += segmentLength;
+    }
+    importedAudioCurrentSegment = 0;
+    alert("Audio imported and split into segments!");
+});
+
+function playImportedAudioSegment() {
+    if (!importedAudioBuffer || !importedAudioContext) return;
+    if (importedAudioSegments.length === 0) return;
+
+    const start = importedAudioSegments[importedAudioCurrentSegment];
+    const duration = importedAudioSegmentDuration;
+    const source = importedAudioContext.createBufferSource();
+    source.buffer = importedAudioBuffer;
+
+    // Create a gain node to avoid clicks
+    const gainNode = importedAudioContext.createGain();
+    gainNode.gain.setValueAtTime(1, importedAudioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0, importedAudioContext.currentTime + duration);
+
+    source.connect(gainNode).connect(importedAudioContext.destination);
+    source.start(0, start, duration);
+
+    importedAudioCurrentSegment = (importedAudioCurrentSegment + 1) % importedAudioSegments.length;
+}
 // Reset function
 let change_size = 0;
 let glow_change = 5
@@ -366,7 +634,7 @@ resetButton.addEventListener("click", () => {
     resetAnimation(mode);
 });
 
-balls.push(new Ball([canvas.width / 2, canvas.height / 2 - 200], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
+balls.push(new Ball([canvas.width / 2, canvas.height / 2 - startingyheight * 1], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
 
 // Preload piano sounds
 const pianoNotes = [];
@@ -517,14 +785,14 @@ function update() {
                         if (prev_checked === false) {
                             if (balls.length < maxBalls && ball.isIn) {
                                 for (let i = 0; i < balls_to_spawn; i++) {
-                                    balls.push(new Ball([canvas.width / 2, canvas.height / 2 - 200], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
+                                    balls.push(new Ball([canvas.width / 2, canvas.height / 2 - startingyheight * 1], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
                                 }
                             }
                             ball.isIn = false;
 
                         } else {
                             for (let i = 0; i < balls_to_spawn; i++) {
-                                balls.push(new Ball([canvas.width / 2, canvas.height / 2 - 200], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
+                                balls.push(new Ball([canvas.width / 2, canvas.height / 2 - startingyheight * 1], [Math.random() * 8 - 4, Math.random() * 2 - 1]));
                             }
                             circles.shift()
                             if (CreateALine.checked && balls.length === 1) {
@@ -537,7 +805,11 @@ function update() {
                     if (circles.length > 0) {
                         if (ball.isIn && dist + ball.radius > circles[0].radius) {
                             if (Music.checked) {
-                                playNote();
+                                if (importedAudioBuffer) {
+                                    playImportedAudioSegment();
+                                } else {
+                                    playNote();
+                                }
                             }
                             if (BallInc.checked) {
                                 ball.radius += change_size;
@@ -699,7 +971,7 @@ function draw() {
     });
 
     rotators.forEach(rotate => {
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = 'black';
         ctx.beginPath();
         ctx.arc(rotate.pos.x, rotate.pos.y, rotator_size, 0, Math.PI * 2);
         ctx.fill();
@@ -789,7 +1061,9 @@ function draw() {
     gravity_AMOUNT.draw(ctx, gravity.toString());
     ballRad_AMOUNT.draw(ctx, ballRadius.toString());
     ballMAXsizeAMOUNT.draw(ctx, ballMAXsize.toString());
-    stop_after_x_AMOUNT.draw(ctx, stop_after_x.toString());
+    if (StopAfterTime.checked) {
+        stop_after_x_AMOUNT.draw(ctx, stop_after_x.toString());
+    }
 
     if (timer.checked) timer_AMOUNT.draw(ctx, Math.round(time_length).toString());
     if (trail.checked) trail_AMOUNT.draw(ctx, trail_length.toString());
@@ -797,7 +1071,7 @@ function draw() {
     if (show_ball_count.checked) {
         ctx.fillStyle = 'red';
         ctx.font = "Bold 40px Verdana";
-        ctx.fillText(`${balls.length}`, canvas.innerWidth/2, canvas.innerHeight/2);
+        ctx.fillText(`${balls.length}`, canvas.width/2, canvas.height/2);
     }
 
     drawTimer();
@@ -813,11 +1087,11 @@ function draw() {
 }
 
 
+// Remove delta and use a fixed 60 FPS loop with setInterval
 
 function loop() {
-    update();
+if (!isPaused) update();
     draw();
-    requestAnimationFrame(loop);
 }
-loop();
+setInterval(loop, 1000 / 55); // 60 FPS
 
